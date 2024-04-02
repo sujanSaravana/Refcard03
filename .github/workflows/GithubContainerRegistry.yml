@@ -15,9 +15,8 @@ jobs:
         run: |
           echo "<TOKEN> | "docker login --username AWS --password-stdin ${{ secrets.AWS_PASSWORD }} 137181989423.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com  
 
-      - name: Build, Tag, and Push
+      - name: Build & Tag
         run: |
-          IMAGE_URI=137181989423.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/refcard03
           docker build -t refcard03 .
-          docker tag refcard03:latest $IMAGE_URI:latest
-          docker push $IMAGE_URI:latest
+          docker tag refcard03:latest 137181989423.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/refcard03:latest
+          docker push 137181989423.dkr.ecr.us-east-1.amazonaws.com/refcard03:latest
