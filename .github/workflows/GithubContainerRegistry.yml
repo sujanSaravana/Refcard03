@@ -13,10 +13,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Login to AWS ECR
         run: |
-          docker login --username AWS --password-stdin ${{ secrets.AWS_PASSWORD }} 137181989423.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+          aws ecr get-login-password | docker login --username AWS --password-stdin 137181989423.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-      - name: Build & Tag
+      - name: Build, Tag, and Push
         run: |
+          IMAGE_URI=137181989423.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/refcard03
           docker build -t refcard03 .
-          docker tag refcard03:latest 137181989423.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/refcard03:latest
-          docker push 137181989423.dkr.ecr.us-east-1.amazonaws.com/refcard03:latest
+          docker tag refcard03:latest $IMAGE_URI:latest
+          docker push $IMAGE_URI:latest
