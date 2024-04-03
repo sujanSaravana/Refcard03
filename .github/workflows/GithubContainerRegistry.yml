@@ -24,7 +24,7 @@ jobs:
 
       - name: Login to AWS ECR
         run: |
-          echo "${{ secrets.AWS_PASSWORD }}" | "docker login --username AWS --password-stdin 137181989423.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com  
+          echo "${{ secrets.AWS_PASSWORD }}" | docker login --username AWS --password-stdin 137181989423.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com  
 
       - name: Build & Tag
         run: |
